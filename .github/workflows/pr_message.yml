@@ -20,5 +20,5 @@ jobs:
           fetch-depth: '0'
 
       - name: Check commit message
-        run: git log -1 --pretty=format:"%s"
+        run: git log -1 --pretty=format:"BACKMERGE %s"
         shell: bash
