@@ -1,0 +1,27 @@
+name: Enforce PR Title
+on:
+  push:
+    branches:
+      - develop
+      - main
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    if: ${{ github.base_ref == 'develop' && github.ref == 'refs/heads/main' }}
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.ref }} event."
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.base_ref }} event."
+      - name: Git checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+
+      - name: Check commit message
+        run: git log -1 --pretty=format:"BACKMERGE %s"
+        shell: bash
