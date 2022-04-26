@@ -12,7 +12,7 @@ on:
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
-    if: ${{ github.base_ref == 'develop' && github.ref == 'refs/heads/main' }}
+    if: ${{ github.base_ref == 'develop' && github.head_ref == 'main' }}
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🎉 The job was automatically triggered by a ${{ github.ref }} event."
