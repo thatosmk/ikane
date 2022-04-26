@@ -14,6 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.ref }} event."
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.base_ref }} event."
       - name: Git checkout
         uses: actions/checkout@v2
         with:
