@@ -12,16 +12,22 @@ on:
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
-    if: ${{ github.base_ref == 'develop' && github.ref == 'refs/heads/main' }}
+    if: ${{ github.base_ref == 'develop' && github.head_ref == 'main' }}
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.ref }} event."
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.base_ref }} event."
       - name: Git checkout
         uses: actions/checkout@v2
         with:
           fetch-depth: '0'
 
       - name: Check commit message
-        run: git log -1 --pretty=format:"BACKMERGE %s"
+        run: |
+          git log -1 --pretty=format:"BACKMERGE ${{ github.head_ref }} ${{ github.base_ref }}"
         shell: bash
+
+      - name: Change commit message
+        uses: EndBug/add-and-commit@v7
+        with:
+          branch: ${{ github.event.pull_request.base.ref }}
+          commit: --ammend 
+          message: 'Bump version to ${{ steps.new-version.outputs.new-version }}'
