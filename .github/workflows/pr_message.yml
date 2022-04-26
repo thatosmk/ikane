@@ -29,4 +29,5 @@ jobs:
         uses: EndBug/add-and-commit@v7
         with:
           branch: ${{ github.event.pull_request.base.ref }}
+          commit: --ammend 
           message: 'Bump version to ${{ steps.new-version.outputs.new-version }}'
